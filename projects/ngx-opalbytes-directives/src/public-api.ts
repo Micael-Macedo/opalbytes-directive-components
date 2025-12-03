@@ -20,4 +20,4 @@
  *
  */
 
-export * from './lib/ngx-opalbytes-directives'
+export * from './lib/directives/highlight/highlight.directive'
