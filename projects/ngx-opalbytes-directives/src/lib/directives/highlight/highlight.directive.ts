@@ -1,20 +1,21 @@
-import { Directive, ElementRef, HostListener, inject, Input } from '@angular/core';
+import { Directive, ElementRef, HostListener, inject, input } from '@angular/core';
 
 @Directive({
-  selector: '[libHighlight]'
+  selector: '[libHighlight]',
+  standalone: true
 })
 export class HighlightDirective {
 
-  @Input() libHighlight = 'yellow';
-  @Input() defaultColor = '';
+  libHighlight = input('yellow');
+
   private el = inject(ElementRef)
 
   @HostListener('mouseenter') onMouseEnter() {
-    this.highlight(this.libHighlight);
+    this.highlight(this.libHighlight());
   }
 
   @HostListener('mouseleave') onMouseLeave() {
-    this.highlight(this.defaultColor || '');
+    this.highlight('');
   }
 
   private highlight(color: string) {

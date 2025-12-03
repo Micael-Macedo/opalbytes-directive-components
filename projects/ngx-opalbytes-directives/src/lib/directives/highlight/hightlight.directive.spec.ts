@@ -7,31 +7,29 @@ import { HighlightDirective } from './highlight.directive';
 // Componente de teste
 @Component({
   template: `
-    <div [libHighlight]="highlightColor" 
-         [defaultColor]="defaultColor">
+    <div [libHighlight]="color">
       Test Element
     </div>
-  `
+  `,
+  standalone: true,
+  imports: [HighlightDirective] 
 })
 class TestComponent {
-  highlightColor = 'yellow';
-  defaultColor = '';
+  color = 'yellow'
 }
 
 describe('HighlightDirective com inject()', () => {
   let fixture: ComponentFixture<TestComponent>;
-  let testComponent: TestComponent;
   let directiveElement: DebugElement;
   let directiveInstance: HighlightDirective;
   let hostElement: HTMLElement;
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      declarations: [TestComponent, HighlightDirective]
+      imports: [TestComponent, HighlightDirective]
     });
 
     fixture = TestBed.createComponent(TestComponent);
-    testComponent = fixture.componentInstance;
     directiveElement = fixture.debugElement.query(By.directive(HighlightDirective));
     
     if (!directiveElement) {
@@ -46,7 +44,7 @@ describe('HighlightDirective com inject()', () => {
 
   it('deve criar uma instância usando inject()', () => {
     expect(directiveInstance).toBeTruthy();
-    expect(directiveInstance.libHighlight).toBe('yellow');
+    expect(directiveInstance.libHighlight()).toBe('yellow');
   });
 
   it('deve ter ElementRef injetado corretamente', () => {
@@ -70,16 +68,5 @@ describe('HighlightDirective com inject()', () => {
     hostElement.dispatchEvent(mouseLeaveEvent);
     fixture.detectChanges();
     expect(hostElement.style.backgroundColor).toBe('');
-  });
-
-  it('deve usar defaultColor quando fornecida', () => {
-    testComponent.defaultColor = 'lightgray';
-    fixture.detectChanges();
-    
-    const mouseLeaveEvent = new MouseEvent('mouseleave');
-    hostElement.dispatchEvent(mouseLeaveEvent);
-    fixture.detectChanges();
-    
-    expect(hostElement.style.backgroundColor).toBe('lightgray');
   });
 });
