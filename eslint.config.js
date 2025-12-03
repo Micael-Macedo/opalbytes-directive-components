@@ -31,6 +31,7 @@ module.exports = defineConfig([
           style: "kebab-case",
         },
       ],
+      "no-console": "error"
     },
   },
   {
