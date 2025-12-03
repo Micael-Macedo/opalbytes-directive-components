@@ -1,4 +1,4 @@
-name: Release
+name: Publish Lib
 on:
   push:
     branches: [ main ]
@@ -29,7 +29,7 @@ jobs:
         run: npm run build
 
       - name: Publish to npm
-        run: 
+        run: |
             cd dist/opalbytes-directive-components
             npm publish --provenance --access public
       
