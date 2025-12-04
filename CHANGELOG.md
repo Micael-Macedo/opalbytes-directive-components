@@ -1,3 +1,10 @@
+# [1.4.0](https://github.com/Micael-Macedo/opalbytes-directive-components/compare/v1.3.0...v1.4.0) (2025-12-04)
+
+
+### Features
+
+* publish npm com semantic ([1fa0b8c](https://github.com/Micael-Macedo/opalbytes-directive-components/commit/1fa0b8c5e3279500052ee139da4cf4f62945ca50))
+
 # [1.3.0](https://github.com/Micael-Macedo/opalbytes-directive-components/compare/v1.2.0...v1.3.0) (2025-12-03)
 
 
