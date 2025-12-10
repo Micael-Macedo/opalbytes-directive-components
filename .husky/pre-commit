@@ -1,1 +1,19 @@
+# .husky/pre-commit
+#!/bin/sh
+
+# Prevenir commits diretos na main
+current_branch=$(git symbolic-ref --short HEAD)
+
+if [ "$current_branch" = "main" ]; then
+    echo "⚠️  AVISO: Você está tentando commitar diretamente na branch 'main'"
+    echo ""
+    echo "📋 Fluxo correto:"
+    echo "   1. Crie uma branch: git checkout -b feat/nova-funcionalidade"
+    echo "   2. Faça commits nela"
+    echo "   3. Envie para o repositório: git push origin feat/nova-funcionalidade"
+    echo "   4. Abra um Pull Request no GitHub"
+    echo ""
+    echo "🔗 Documentação: https://github.com/Micael-Macedo/opalbytes-directive-components/blob/main/README.md#-estratégia-de-branches"
+    exit 1
+fi
 npx eslint
