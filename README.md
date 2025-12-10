@@ -29,12 +29,37 @@ Este repositório contém uma biblioteca Angular (`ngx-opalbytes-directives`) co
     npm install
     ```
 
-2.  **Desenvolver a Biblioteca**
-    Para compilar a biblioteca e re-compilar a cada alteração, use o modo "watch":
-    ```bash
-    ng build ngx-opalbytes-directives --watch
-    ```
-    Para usar esta biblioteca em um projeto local durante o desenvolvimento, você pode usar o `npm link` no repositório da biblioteca, em seguida, utilizar `npm link ngx-opalbytes-directives` para baixar a biblioteca no projeto desejado.
+2. Desenvolver a Biblioteca
+
+### Compilação com Observação de Alterações
+Para compilar a biblioteca e recompilá-la automaticamente a cada modificação, utilize o modo **watch**:
+
+```bash
+ng build ngx-opalbytes-directives --watch
+```
+ou
+```bash
+npm run watch
+```
+
+### Uso em Projeto Local (Desenvolvimento)
+Para testar a biblioteca em um projeto local durante o desenvolvimento, siga estas opções:
+
+#### **Opção 1: Usando `npm link` (Recomendado)**
+1. No diretório da biblioteca:
+   ```bash
+   npm link
+   ```
+2. No diretório do projeto de destino:
+   ```bash
+   npm link ngx-opalbytes-directives
+   ```
+
+#### **Opção 2: Instalação Direta via Caminho Local**
+Caso encontre problemas com `npm link`, instale diretamente pelo caminho da biblioteca compilada:
+```bash
+npm i "caminho-da-biblioteca/opalbytes-directive-components/dist/ngx-opalbytes-directives"
+```
 
 ---
 
