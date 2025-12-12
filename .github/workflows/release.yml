@@ -1,35 +1,149 @@
-name: Publish Lib
+name: Publish Libs
 on:
   push:
     branches: [ main ]
 
 jobs:
-  release:
+  release-libs:
     runs-on: ubuntu-latest
+    if: "contains(github.event.head_commit.message, 'feat(libs)') || contains(github.event.head_commit.message, 'fix(libs)') || contains(github.event.head_commit.message, 'refactor(libs)') || contains(github.event.head_commit.message, 'docs(libs)') || contains(github.event.head_commit.message, 'chore(libs)')  || contains(github.event.head_commit.message, 'release(libs)') || contains(github.event.head_commit.message, 'test(libs)') || contains(github.event.head_commit.message, 'style(libs)')"
     steps:
       - uses: actions/checkout@v3
         with:
           fetch-depth: 0
-      
       - name: Setup Node.js
         uses: actions/setup-node@v3
         with:
           node-version: 'lts/*'
-      
+          
+      - name: Lint lib
+        run: npm lint
+
       - name: Install dependencies
         run: npm ci
-
-      - name: Run Lint
-        run: npm run lint
-
-      - name: Run Unit Test
-        run: npm run test
-
-      - name: Build library
-        run: npm run build
 
       - name: Release
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          NPM_TOKEN: ${{ secrets.NPM_TOKEN }} 
         run: npx semantic-release
+
+  release-components:
+    runs-on: ubuntu-latest
+    if: "contains(github.event.head_commit.message, 'feat(components)') || contains(github.event.head_commit.message, 'fix(components)') || contains(github.event.head_commit.message, 'refactor(components)') || contains(github.event.head_commit.message, 'docs(components)') || contains(github.event.head_commit.message, 'chore(components)')  || contains(github.event.head_commit.message, 'release(components)') || contains(github.event.head_commit.message, 'test(components)') || contains(github.event.head_commit.message, 'style(components)')"
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: 'lts/*'
+          
+      - name: Lint lib
+        run: npm lint
+
+      - name: Test lib
+        run: npm test:components
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Build library
+        run: npm run build:components
+
+      - name: Release
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
+        run: cd projects/ngx-opalbytes-components && npx semantic-release
+
+  release-directives:
+    runs-on: ubuntu-latest
+    if: "contains(github.event.head_commit.message, 'feat(directives)') || contains(github.event.head_commit.message, 'fix(directives)') || contains(github.event.head_commit.message, 'refactor(directives)') || contains(github.event.head_commit.message, 'docs(directives)') || contains(github.event.head_commit.message, 'chore(directives)')  || contains(github.event.head_commit.message, 'release(directives)') || contains(github.event.head_commit.message, 'test(directives)') || contains(github.event.head_commit.message, 'style(directives)')"
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: 'lts/*'
+
+      - name: Lint lib
+        run: npm lint
+
+      - name: Test lib
+        run: npm test:directives
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Build library
+        run: npm run build:directives
+
+      - name: Release
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
+        run: cd projects/ngx-opalbytes-directives && npx semantic-release
+
+  release-services:
+    runs-on: ubuntu-latest
+    if: "contains(github.event.head_commit.message, 'feat(services)') || contains(github.event.head_commit.message, 'fix(services)') || contains(github.event.head_commit.message, 'refactor(services)') || contains(github.event.head_commit.message, 'docsor(services)') || contains(github.event.head_commit.message, 'chore(services)')  || contains(github.event.head_commit.message, 'release(services)') || contains(github.event.head_commit.message, 'test(services)') || contains(github.event.head_commit.message, 'style(services)')"
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: 'lts/*'
+
+      - name: Lint lib
+        run: npm lint
+
+      - name: Test lib
+        run: npm test:services
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Build library
+        run: npm run build:services
+
+      - name: Release
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
+        run: cd projects/ngx-opalbytes-services && npx semantic-release
+
+  release-utils:
+    runs-on: ubuntu-latest
+    if: "contains(github.event.head_commit.message, 'feat(utils)') || contains(github.event.head_commit.message, 'fix(utils)') || contains(github.event.head_commit.message, 'refactor(utils)') || contains(github.event.head_commit.message, 'docsactor(utils)') || contains(github.event.head_commit.message, 'chore(utils)')  || contains(github.event.head_commit.message, 'release(utils)') || contains(github.event.head_commit.message, 'test(utils)') || contains(github.event.head_commit.message, 'style(utils)')"
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: 'lts/*'
+
+      - name: Lint lib
+        run: npm lint
+        
+      - name: Test lib
+        run: npm test:utils
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Build library
+        run: npm run build:utils
+
+      - name: Release
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
+        run: cd projects/ngx-opalbytes-utils && npx semantic-release

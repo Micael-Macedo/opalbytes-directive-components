@@ -12,6 +12,10 @@
     "watch": "ng build --watch --configuration development",
     "test_watch": "ng test",
     "test": "ng test --watch=false",
+    "test:components": "ng test ngx-opalbytes-components --watch=false",
+    "test:directives": "ng test ngx-opalbytes-directives --watch=false",
+    "test:utils": "ng test ngx-opalbytes-utils --watch=false",
+    "test:services": "ng test ngx-opalbytes-services --watch=false",
     "lint": "ng lint",
     "prepare": "husky"
   },
