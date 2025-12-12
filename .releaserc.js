@@ -22,25 +22,18 @@ module.exports = {
         "@semantic-release/release-notes-generator",
         "@semantic-release/changelog",
         [
-            "@semantic-release/npm",
-            {
-                "npmPublish": true,
-                "pkgRoot": "./dist/ngx-opalbytes-directives",
-            }
-        ],
-        [
             "@semantic-release/exec",
             {
-                prepareCmd: "npm version ${nextRelease.version} --no-git-tag-version --prefix projects/ngx-opalbytes-directives",
+                prepareCmd: "npm version ${nextRelease.version} --no-git-tag-version --prefix",
             },
         ],
         [
             "@semantic-release/git",
             {
-                assets: ["CHANGELOG.md", "package.json", "package-lock.json", "projects/ngx-opalbytes-directives/package.json"],
+                assets: ["CHANGELOG.md", "package.json", "package-lock.json"],
             },
         ],
         "@semantic-release/github",
     ],
-    repositoryUrl: "https://github.com/Micael-Macedo/opalbytes-directive-components",
+    repositoryUrl: "https://github.com/Micael-Macedo/opalbytes-angular-lib",
 };

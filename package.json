@@ -1,13 +1,21 @@
 {
-  "name": "opalbytes-directive-components",
+  "name": "opalbytes-angular-lib",
   "version": "1.3.0",
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
-    "build": "ng build",
+    "build:all": "ng build ngx-opalbytes-directives && ng build ngx-opalbytes-components && ng build ngx-opalbytes-services && ng build ngx-opalbytes-utils",
+    "build:directives": "ng build ngx-opalbytes-directives",
+    "build:components": "ng build ngx-opalbytes-components",
+    "build:services": "ng build ngx-opalbytes-services",
+    "build:utils": "ng build ngx-opalbytes-utils",
     "watch": "ng build --watch --configuration development",
     "test_watch": "ng test",
     "test": "ng test --watch=false",
+    "test:components": "ng test ngx-opalbytes-components --watch=false",
+    "test:directives": "ng test ngx-opalbytes-directives --watch=false",
+    "test:utils": "ng test ngx-opalbytes-utils --watch=false",
+    "test:services": "ng test ngx-opalbytes-services --watch=false",
     "lint": "ng lint",
     "prepare": "husky"
   },

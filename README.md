@@ -16,9 +16,11 @@
 
 ---
 
-# 📦 Opalbytes Directive Components
+# 📦 Opalbytes Angular Libs
 
-Este repositório contém uma biblioteca Angular (`ngx-opalbytes-directives`) com um conjunto de diretivas reutilizáveis. O projeto está configurado com um fluxo de trabalho moderno para garantir a qualidade e a consistência do código.
+Este é um monorepo que centraliza uma coleção de bibliotecas Angular reutilizáveis. O objetivo é fornecer um conjunto coeso e padronizado de componentes, diretivas, serviços e utilitários para acelerar o desenvolvimento de projetos.
+
+O projeto está configurado com um fluxo de trabalho moderno, utilizando automação para testes, lint, versionamento e publicação, garantindo a qualidade e a consistência do código em todas as bibliotecas.
 
 ---
 
@@ -63,27 +65,26 @@ npm i "caminho-da-biblioteca/opalbytes-directive-components/dist/ngx-opalbytes-d
 
 ---
 
-## 📂 Estrutura do Projeto
+## 📂 Estrutura do Monorepo
 
-A estrutura do projeto é organizada para o desenvolvimento de bibliotecas Angular.
+Este é um monorepo Angular que gerencia múltiplas bibliotecas. Todas as bibliotecas residem no diretório `projects/`.
 
 ```
 opalbytes-directive-components/
 ├── projects/
-│   └── ngx-opalbytes-directives/    ✅ A nossa biblioteca de diretivas
-│       ├── src/
-│       │   ├── lib/
-│       │   │   └── directives/      📚 Onde as diretivas são criadas
-│       │   └── public-api.ts        📦 Arquivo que expõe as diretivas para o público
-│       └── ng-package.json          ⚙️ Configuração de empacotamento da biblioteca
+│   ├── ngx-opalbytes-components/    # Biblioteca de componentes
+│   ├── ngx-opalbytes-directives/    # Biblioteca de diretivas
+│   ├── ngx-opalbytes-services/      # Biblioteca de serviços
+│   └── ngx-opalbytes-utils/         # Funções utilitárias
 │
-├── .github/                         ⚙️ Workflows de CI/CD (ex: Release com semantic-release)
-├── .husky/                          훅 Git para validação de commits
-├── commitlint.config.js             룰 Regras para o formato das mensagens de commit
-└── .releaserc.js                    🚀 Configuração do semantic-release
+├── .github/                         # Workflows de CI/CD (Release)
+├── .husky/                          # Hooks do Git para validações
+├── commitlint.config.js             # Regras para o formato dos commits
+└── .releaserc.js                    # Configuração do semantic-release
 ```
 
 --- 
+
 ## 🌿 Estratégia de Branches
 
 ### Convenção de Nomenclatura
@@ -104,57 +105,96 @@ Usamos uma convenção simples e eficiente para nomear branches:
 **Exemplos corretos:**
 ```bash
 # ✅ Branches válidas
-git checkout -b feat/add-input-mask-directive
-git checkout -b fix/correcao-validacao-formato
-git checkout -b docs/atualizacao-guia-instalacao
-git checkout -b test/add-testes-unitarios-diretivas
+git checkout -b feat(directives)/add-input-mask-directive
+git checkout -b fix(component)/correcao-validacao-formato
 ```
-
-**Regras importantes:**
-- Use apenas letras minúsculas
-- Separe palavras com hífen (`-`)
-- Evite caracteres especiais
-- Seja descritivo mas conciso
 
 ### Fluxo de Trabalho
 1. Crie uma branch a partir da `main`:
    ```bash
    git checkout main
    git pull origin main
-   git checkout -b tipo/nome-da-feature
+   git checkout -b tipo(escopo)/nome-da-feature
    ```
-
-2. Desenvolva e faça commits seguindo as regras de Conventional Commits
-
-3. Abra um Pull Request para revisão
+2. Desenvolva e faça commits seguindo as regras de Conventional Commits.
+3. Abra um Pull Request para revisão.
 
 ---
 
-## 룰 Regras de Commit
+## 📝 Como Contribuir
 
-Este projeto utiliza o padrão **Conventional Commits** para as mensagens de commit. Esse padrão é obrigatório e validado automaticamente antes de cada commit usando `commitlint` e `husky`.
+### Adicionando Funcionalidades a uma Biblioteca Existente
 
-O formato geral é:
+1.  **Crie os arquivos** da sua nova funcionalidade (componente, diretiva, serviço, etc.) dentro da pasta `src/lib/` da biblioteca correspondente.
+2.  **Exponha sua funcionalidade** na API pública da biblioteca, adicionando uma linha de exportação no arquivo `public-api.ts` da biblioteca.
+3.  **Adicione ou atualize os testes unitários** para garantir a cobertura da sua nova funcionalidade.
+4.  **Crie seu commit** seguindo as regras de escopo descritas na próxima seção.
 
+### Adicionando uma Nova Biblioteca
+
+Para adicionar uma nova biblioteca ao monorepo (ex: `ngx-opalbytes-nova-lib`), siga estes passos:
+
+1.  **Gere a nova biblioteca** com o Angular CLI:
+    ```bash
+    ng generate library ngx-opalbytes-nova-lib
+    ```
+
+2.  **Atualize o `package.json`** na raiz do projeto. Adicione os scripts de `build` e `test` para a sua nova biblioteca, seguindo o padrão existente:
+    ```json
+    "scripts": {
+      // ... outros scripts
+      "build:nova-lib": "ng build ngx-opalbytes-nova-lib",
+      "test:nova-lib": "ng test ngx-opalbytes-nova-lib --watch=false",
+      // ...
+    },
+    ```
+
+3.  **Atualize o Workflow de Release (`.github/workflows/release.yml`)**:
+    *   Copie um job existente (ex: `release-directives`).
+    *   Renomeie o job para `release-nova-lib`.
+    *   Atualize a condição `if` para usar o escopo da sua nova lib (ex: `contains(github.event.head_commit.message, 'feat(nova-lib)')`).
+    *   Altere os comandos de teste e build (ex: `npm run test:nova-lib` e `npm run build:nova-lib`).
+    *   Atualize o caminho no passo de Release (ex: `cd projects/ngx-opalbytes-nova-lib && npx semantic-release`).
+
+4.  **Atualize este `README.md`**: Adicione o escopo da sua nova biblioteca (`nova-lib`) à lista de escopos válidos na seção de "Regras de Commit".
+
+---
+
+## 룰 Regras de Commit (com Escopo Obrigatório)
+
+Este projeto utiliza o padrão **Conventional Commits**. Esse padrão é obrigatório e validado automaticamente antes de cada commit.
+
+O formato é:
 ```
 <tipo>(<escopo>): <descrição>
 ```
 
-**Principais `tipos` permitidos:**
+### A Importância do Escopo
 
-*   **feat**: Para novas funcionalidades.
-*   **fix**: Para correções de bugs.
-*   **docs**: Para alterações na documentação.
-*   **style**: Para formatação de código (espaços, ponto e vírgula, etc.).
-*   **refactor**: Para refatorações que não alteram a funcionalidade.
-*   **test**: Para adição ou modificação de testes.
-*   **chore**: Para tarefas de build, configuração, etc.
+O **escopo é obrigatório** e indica qual biblioteca do monorepo está sendo modificada. Isso é **crucial** para que o `semantic-release` possa versionar e publicar apenas os pacotes que foram alterados.
 
-**Exemplo de mensagem de commit válida:**
+**O escopo DEVE ser um dos seguintes:**
+
+*   `components`
+*   `directives`
+*   `services`
+*   `utils`
+*   `libs`
+
+**Exemplos de mensagens de commit VÁLIDAS:**
 
 ```bash
-feat(input): adicionar diretiva para formatar moeda em tempo real
+# ✅ Nova funcionalidade na biblioteca de diretivas
+feat(directives): add currency formatting directive
+
+# ✅ Correção de um bug na biblioteca de componentes
+fix(components): correct button alignment on mobile
+
+# ✅ Alteração na documentação do projeto raiz
+docs(libs): update main README with contribution guide
 ```
+
+**Um commit sem um escopo válido será rejeitado.**
 
 ---
 
