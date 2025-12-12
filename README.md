@@ -16,9 +16,11 @@
 
 ---
 
-# 📦 Opalbytes Angular Lib
+# 📦 Opalbytes Angular Libs
 
-Este repositório contém uma biblioteca Angular (`ngx-opalbytes-directives`) com um conjunto de diretivas reutilizáveis. O projeto está configurado com um fluxo de trabalho moderno para garantir a qualidade e a consistência do código.
+Este é um monorepo que centraliza uma coleção de bibliotecas Angular reutilizáveis. O objetivo é fornecer um conjunto coeso e padronizado de componentes, diretivas, serviços e utilitários para acelerar o desenvolvimento de projetos.
+
+O projeto está configurado com um fluxo de trabalho moderno, utilizando automação para testes, lint, versionamento e publicação, garantindo a qualidade e a consistência do código em todas as bibliotecas.
 
 ---
 
