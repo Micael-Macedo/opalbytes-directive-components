@@ -5,8 +5,18 @@
 current_branch=$(git symbolic-ref --short HEAD)
 remote="$1"
 
+# Extrai o nome do autor do commit do ambiente, se definido pelo semantic-release
+commit_author_name="$GIT_AUTHOR_NAME"
+
+# Verifica se o commit está sendo feito pelo semantic-release
+# O nome do autor pode ser personalizado na configuração do @semantic-release/git
+is_semantic_release=false
+if [ "$commit_author_name" = "semantic-release-bot" ]; then
+  is_semantic_release=true
+fi
+
 # Se tentando push para origin/main
-if [ "$remote" = "origin" ] && [ "$current_branch" = "main" ]; then
+if [ "$remote" = "origin" ] && [ "$is_semantic_release" = "false" ] && [ "$current_branch" = "main" ]; then
   echo "❌ ERRO: Push direto para 'main' não é permitido!"
   echo ""
   echo "📋 Fluxo correto:"

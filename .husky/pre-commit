@@ -4,7 +4,17 @@
 # Prevenir commits diretos na main
 current_branch=$(git symbolic-ref --short HEAD)
 
-if [ "$current_branch" = "main" ]; then
+# Extrai o nome do autor do commit do ambiente, se definido pelo semantic-release
+commit_author_name="$GIT_AUTHOR_NAME"
+
+# Verifica se o commit está sendo feito pelo semantic-release
+# O nome do autor pode ser personalizado na configuração do @semantic-release/git
+is_semantic_release=false
+if [ "$commit_author_name" = "semantic-release-bot" ]; then
+  is_semantic_release=true
+fi
+
+if [ "$current_branch" = "main" ] && [ "$is_semantic_release" = "false" ]; then
     echo "⚠️  AVISO: Você está tentando commitar diretamente na branch 'main'"
     echo ""
     echo "📋 Fluxo correto:"
